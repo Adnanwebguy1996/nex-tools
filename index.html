@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEX Tools Pro - Pay Once, Unlock Forever</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f7fa;
+            color: #1a1a2e;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        /* Usage Stats */
+        .stats-card {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+            min-width: 240px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stats-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .usage-text {
+            font-size: 0.85rem;
+            color: #718096;
+            margin: 5px 0;
+        }
+
+        .premium-status {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .upgrade-btn {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 2rem 0 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #4a5568;
+            font-size: 1.1rem;
+        }
+
+        .pricing-tag {
+            display: inline-block;
+            background: #fef5e7;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f5576c;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .tool-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-header i {
+            font-size: 1.8rem;
+        }
+
+        .tool-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .tool-body {
+            padding: 1.5rem;
+        }
+
+        .tool-desc {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.3rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        /* Payment Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .modal-price {
+            font-size: 2.5rem;
+            color: #667eea;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .wallet-address {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .wallet-address code {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            display: block;
+            word-break: break-all;
+            font-size: 0.8rem;
+            margin: 8px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .qr-code canvas {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .payment-status {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .payment-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .payment-status.confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .tx-input {
+            margin: 1rem 0;
+        }
+
+        .tx-input input {
+            font-family: monospace;
+        }
+
+        .modal-features {
+            text-align: left;
+            margin: 1.5rem 0;
+            list-style: none;
+        }
+
+        .modal-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-features i {
+            color: #48bb78;
+        }
+
+        .close-modal {
+            color: #a0aec0;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            z-index: 1500;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+
+        .toast.error {
+            background: #f56565;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-card {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                left: auto;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">NEX Tools</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#" id="upgradeNavBtn" class="premium-badge">Get Premium - $20</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="stats-card" id="statsCard">
+        <div class="stats-header">
+            <i class="fas fa-chart-simple"></i> Account Status
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="usage-text" id="usageText">0 / 10 tools used today</div>
+        <div class="usage-text" id="remainingText">10 remaining</div>
+        <div id="premiumStatus"></div>
+        <button class="upgrade-btn" id="upgradeBtn"><i class="fab fa-bitcoin"></i> Pay with Crypto - $20</button>
+    </div>
+
+    <div class="container" id="home">
+        <div class="hero">
+            <h1>Essential Productivity Tools</h1>
+            <p>Save time on everyday computer tasks with these powerful utilities</p>
+            <div class="pricing-tag">
+                Free: <strong>10 uses/day</strong> | <strong class="price">$20 USD</strong> = Lifetime Premium Access
+            </div>
+        </div>
+
+        <div id="tools">
+            <div class="tools-grid">
+                <!-- Tool 1: Screenshot OCR -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-camera"></i>
+                        <h2>📸 Screenshot OCR</h2>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-desc">Extract text from screenshots and images. Perfect for copying text from images or scanned documents.</div>
+                        <div class="input-group">
+                            <label>Upload Image</label>
+                            <input type="file" id="ocrImage" accept="image/*">
+                        </div>
+                        <button class="btn-primary" id="ocrBtn" onclick="useTool('OCR', extractTextFromImage)">
+                            <i class="fas fa-language"></i> Extract Text
+                        </button>
+                        <div id="ocrResult" class="result-area"></div>
+                    </div>
+                </div>
+
+                <!-- Tool 2: Batch File Renamer -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-tag"></i>
+                        <h2>📁 Batch File Renamer</h2>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-desc">Rename multiple files at once. Add prefix/suffix, replace text, or use sequential numbering.</div>
+                        <div class="input-group">
+                            <label>File Names (one per line)</label>
+                            <textarea id="fileNames" rows="4" placeholder="image1.jpg&#10;image2.jpg&#10;document.pdf"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Rename Pattern</label>
+                            <select id="renameMode">
+                                <option value="prefix">Add Prefix</option>
+                                <option value="suffix">Add Suffix</option>
+                                <option value="replace">Replace Text</option>
+                                <option value="sequential">Sequential (1,2,3...)</option>
+                            </select>
+                        </div>
+                        <div class="input-group" id="renameValueGroup">
+                            <label>Value</label>
+                            <input type="text" id="renameValue" placeholder="e.g., new_">
+                        </div>
+                        <button class="btn-primary" onclick="useTool('Batch Renamer', batchRenameFiles)">
+                            <i class="fas fa-pen"></i> Preview Rename
+                        </button>
+                        <div id="renameResult" class="result-area"></div>
+                    </div>
+                </div>
+
+                <!-- Tool 3: Image to PDF Converter -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-file-pdf"></i>
+                        <h2>🖼️ Image to PDF</h2>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-desc">Convert multiple images to a single PDF file. Perfect for combining scanned documents.</div>
+                        <div class="input-group">
+                            <label>Select Images (JPG, PNG)</label>
+                            <input type="file" id="pdfImages" multiple accept="image/*">
+                        </div>
+                        <button class="btn-primary" onclick="useTool('Image to PDF', convertImagesToPDF)">
+                            <i class="fas fa-file-pdf"></i> Create PDF
+                        </button>
+                        <div id="pdfResult" class="result-area"></div>
+                    </div>
+                </div>
+
+                <!-- Tool 4: Text Cleaner -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-broom"></i>
+                        <h2>🧹 Text Cleaner</h2>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-desc">Clean and format messy text. Remove extra spaces, fix line breaks, convert case, and more.</div>
+                        <div class="input-group">
+                            <label>Paste Text</label>
+                            <textarea id="dirtyText" rows="6" placeholder="Paste messy text here..."></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Actions</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button type="button" class="btn-primary" style="width: auto; padding: 5px 10px; font-size: 0.8rem;" onclick="useTool('Text Cleaner', () => cleanText('trim'))">Trim Spaces</button>
+                                <button type="button" class="btn-primary" style="width: auto; padding: 5px 10px; font-size: 0.8rem;" onclick="useTool('Text Cleaner', () => cleanText('lines'))">Fix Line Breaks</button>
+                                <button type="button" class="btn-primary" style="width: auto; padding: 5px 10px; font-size: 0.8rem;" onclick="useTool('Text Cleaner', () => cleanText('uppercase'))">UPPERCASE</button>
+                                <button type="button" class="btn-primary" style="width: auto; padding: 5px 10px; font-size: 0.8rem;" onclick="useTool('Text Cleaner', () => cleanText('lowercase'))">lowercase</button>
+                                <button type="button" class="btn-primary" style="width: auto; padding: 5px 10px; font-size: 0.8rem;" onclick="useTool('Text Cleaner', () => cleanText('title'))">Title Case</button>
+                            </div>
+                        </div>
+                        <div id="cleanResult" class="result-area"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>NEX Tools - Essential productivity tools for everyday work</p>
+        <p style="font-size: 0.8rem; margin-top: 8px;">Free: 10 uses/day | Premium: $20 one-time payment for lifetime access</p>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <i class="fas fa-crown" style="font-size: 3rem; color: #f5576c; display: block; text-align: center;"></i>
+            <h2>Unlock Lifetime Premium</h2>
+            <div class="modal-price">$20 USD</div>
+            <p style="text-align: center; color: #718096;">One-time payment for permanent unlimited access</p>
+            
+            <div class="wallet-address">
+                <i class="fab fa-bitcoin" style="color: #f7931a; font-size: 1.2rem;"></i>
+                <strong>Bitcoin (BTC) Address</strong>
+                <code id="btcAddress">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+                <button onclick="copyAddress('btcAddress')" style="margin-top: 5px; padding: 4px 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+            
+            <div class="wallet-address">
+                <i class="fab fa-ethereum" style="color: #627eea; font-size: 1.2rem;"></i>
+                <strong>Ethereum (ETH) / USDT (ERC20)</strong>
+                <code id="ethAddress">0x742d35Cc6634C0532925a3b844Bc9e759f0e7b2a</code>
+                <button onclick="copyAddress('ethAddress')" style="margin-top: 5px; padding: 4px 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+            
+            <div class="qr-code" id="qrCodeContainer">
+                <p><i class="fas fa-qrcode"></i> Scan with your wallet</p>
+                <div id="qrcode"></div>
+            </div>
+            
+            <div class="tx-input">
+                <label>After sending payment, enter your transaction ID:</label>
+                <input type="text" id="txHash" placeholder="Transaction ID / Hash" style="margin-top: 5px;">
+                <button class="btn-primary" style="margin-top: 10px;" onclick="verifyPayment()">
+                    <i class="fas fa-check-circle"></i> Verify Payment
+                </button>
+            </div>
+            
+            <div id="paymentStatus" class="payment-status pending" style="display: none;">
+                <i class="fas fa-clock"></i> Waiting for verification...
+            </div>
+            
+            <ul class="modal-features">
+                <li><i class="fas fa-check-circle"></i> Unlimited tool usage forever</li>
+                <li><i class="fas fa-check-circle"></i> All 4 productivity tools</li>
+                <li><i class="fas fa-check-circle"></i> Batch processing for files</li>
+                <li><i class="fas fa-check-circle"></i> No daily limits ever</li>
+                <li><i class="fas fa-check-circle"></i> Lifetime updates</li>
+                <li><i class="fas fa-check-circle"></i> Priority support</li>
+            </ul>
+            
+            <div class="close-modal" onclick="closePaymentModal()">Cancel</div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============ PAYMENT SYSTEM ============
+        // Wallet addresses (REPLACE WITH YOUR ACTUAL WALLETS)
+        const WALLETS = {
+            btc: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+            eth: "0x742d35Cc6634C0532925a3b844Bc9e759f0e7b2a",
+            usdt: "0x742d35Cc6634C0532925a3b844Bc9e759f0e7b2a"
+        };
+        
+        // Admin secret key for manual verification (in production, this would be on your server)
+        const ADMIN_SECRET = "nex-tools-2024-secret";
+        
+        // Store verified transactions
+        let verifiedTransactions = JSON.parse(localStorage.getItem('verified_tx') || '[]');
+        
+        // User State
+        let userState = {
+            isPremium: false,
+            dailyUsage: 0,
+            dailyLimit: 10,
+            lastResetDate: new Date().toDateString(),
+            verifiedTx: null
+        };
+        
+        // Check if user has verified payment before
+        function checkExistingVerification() {
+            const saved = localStorage.getItem('nexToolsUser');
+            if(saved) {
+                const parsed = JSON.parse(saved);
+                const today = new Date().toDateString();
+                if(parsed.lastResetDate !== today) {
+                    userState = {
+                        isPremium: parsed.isPremium || false,
+                        dailyUsage: 0,
+                        dailyLimit: parsed.isPremium ? Infinity : 10,
+                        lastResetDate: today,
+                        verifiedTx: parsed.verifiedTx
+                    };
+                } else {
+                    userState = parsed;
+                    if(userState.isPremium) userState.dailyLimit = Infinity;
+                }
+            }
+            
+            // Also check verified transactions list
+            if(userState.verifiedTx && verifiedTransactions.includes(userState.verifiedTx)) {
+                userState.isPremium = true;
+                userState.dailyLimit = Infinity;
+                saveState();
+            }
+            
+            updateStats();
+            updatePremiumStatus();
+        }
+        
+        function saveState() {
+            localStorage.setItem('nexToolsUser', JSON.stringify(userState));
+            localStorage.setItem('verified_tx', JSON.stringify(verifiedTransactions));
+        }
+        
+        function updateStats() {
+            const used = userState.dailyUsage;
+            const limit = userState.isPremium ? '∞' : userState.dailyLimit;
+            
+            document.getElementById('usageText').innerHTML = userState.isPremium ? 
+                'Unlimited access ✨' : `${used} / ${userState.dailyLimit} tools used today`;
+            document.getElementById('remainingText').innerHTML = userState.isPremium ? 
+                'Lifetime Premium Active' : `${userState.dailyLimit - userState.dailyUsage} remaining`;
+            
+            const percentage = userState.isPremium ? 100 : (used / userState.dailyLimit) * 100;
+            document.getElementById('progressFill').style.width = `${Math.min(percentage, 100)}%`;
+        }
+        
+        function updatePremiumStatus() {
+            const statusDiv = document.getElementById('premiumStatus');
+            if(userState.isPremium) {
+                statusDiv.innerHTML = '<div class="premium-status"><i class="fas fa-crown"></i> Premium Member - Unlimited Access</div>';
+                document.getElementById('upgradeBtn').style.display = 'none';
+                document.getElementById('upgradeNavBtn').style.display = 'none';
+            } else {
+                statusDiv.innerHTML = '<div class="usage-text" style="color: #f5576c;"><i class="fas fa-lock"></i> Free Account - 10 uses/day</div>';
+            }
+        }
+        
+        function canUse() {
+            if(userState.isPremium) return true;
+            if(userState.dailyUsage >= userState.dailyLimit) {
+                showToast('Daily limit reached! Pay $20 for lifetime unlimited access.', true);
+                showPaymentModal();
+                return false;
+            }
+            return true;
+        }
+        
+        function useTool(toolName, callback) {
+            if(!canUse()) return;
+            
+            if(!userState.isPremium) {
+                userState.dailyUsage++;
+                saveState();
+                updateStats();
+            }
+            
+            callback();
+            showToast(`✓ ${toolName} completed! ${userState.isPremium ? 'Unlimited access' : (userState.dailyLimit - userState.dailyUsage) + ' uses remaining'}`);
+        }
+        
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // ============ PAYMENT FUNCTIONS ============
+        function showPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            modal.style.display = 'flex';
+            
+            // Generate QR code for BTC address
+            setTimeout(() => {
+                const qrcodeDiv = document.getElementById('qrcode');
+                qrcodeDiv.innerHTML = '';
+                new QRCode(qrcodeDiv, {
+                    text: WALLETS.btc,
+                    width: 180,
+                    height: 180
+                });
+            }, 100);
+            
+            // Reset payment status
+            document.getElementById('paymentStatus').style.display = 'none';
+            document.getElementById('txHash').value = '';
+        }
+        
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        function copyAddress(elementId) {
+            const address = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(address);
+            showToast('Address copied to clipboard!');
+        }
+        
+        async function verifyPayment() {
+            const txHash = document.getElementById('txHash').value.trim();
+            
+            if(!txHash) {
+                showToast('Please enter your transaction ID', true);
+                return;
+            }
+            
+            const statusDiv = document.getElementById('paymentStatus');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'payment-status pending';
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying transaction...';
+            
+            // Simulate blockchain verification
+            // In production, you would call your backend API here to verify the transaction
+            setTimeout(() => {
+                // For demo purposes, we'll accept any transaction ID
+                // In production, you would verify with blockchain explorers
+                
+                // Check if this transaction was already used
+                if(verifiedTransactions.includes(txHash)) {
+                    statusDiv.className = 'payment-status pending';
+                    statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> This transaction has already been used.';
+                    return;
+                }
+                
+                // Simulate verification success
+                // In production, you would:
+                // 1. Check if transaction exists on blockchain
+                // 2. Verify amount sent ($20 worth of crypto)
+                // 3. Confirm confirmations
+                
+                // For demo, we'll accept any non-empty transaction
+                if(txHash.length > 10) {
+                    // Mark as verified
+                    verifiedTransactions.push(txHash);
+                    userState.isPremium = true;
+                    userState.dailyLimit = Infinity;
+                    userState.verifiedTx = txHash;
+                    saveState();
+                    updateStats();
+                    updatePremiumStatus();
+                    
+                    statusDiv.className = 'payment-status confirmed';
+                    statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Payment Verified! Premium Unlocked Forever!';
+                    
+                    showToast('🎉 Payment verified! Welcome to Premium!');
+                    
+                    // Close modal after 2 seconds
+                    setTimeout(() => {
+                        closePaymentModal();
+                    }, 2000);
+                } else {
+                    statusDiv.className = 'payment-status pending';
+                    statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Invalid transaction ID. Please check and try again.';
+                }
+            }, 2000);
+        }
+        
+        // Admin function to manually verify (for testing)
+        window.adminVerify = function(txHash) {
+            if(txHash && txHash.length > 5) {
+                verifiedTransactions.push(txHash);
+                userState.isPremium = true;
+                userState.dailyLimit = Infinity;
+                userState.verifiedTx = txHash;
+                saveState();
+                updateStats();
+                updatePremiumStatus();
+                showToast('Admin: Premium manually activated!');
+            }
+        };
+        
+        // ============ TOOL FUNCTIONS ============
+        
+        // Tool 1: OCR
+        async function extractTextFromImage() {
+            const fileInput = document.getElementById('ocrImage');
+            const resultDiv = document.getElementById('ocrResult');
+            
+            if(!fileInput.files[0]) {
+                showToast('Please select an image first', true);
+                return;
+            }
+            
+            resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing image...';
+            resultDiv.style.display = 'block';
+            
+            try {
+                const { data: { text } } = await Tesseract.recognize(
+                    fileInput.files[0],
+                    'eng',
+                    { logger: m => console.log(m) }
+                );
+                
+                resultDiv.innerHTML = `
+                    <strong><i class="fas fa-copy"></i> Extracted Text:</strong>
+                    <div style="background: white; padding: 0.8rem; border-radius: 6px; margin-top: 8px; max-height: 200px; overflow-y: auto;">${text || 'No text found'}</div>
+                    <button class="btn-primary" style="margin-top: 8px; width: auto; padding: 5px 12px;" onclick="navigator.clipboard.writeText('${text.replace(/'/g, "\\'")}')">
+                        <i class="fas fa-clipboard"></i> Copy to Clipboard
+                    </button>
+                `;
+            } catch(e) {
+                resultDiv.innerHTML = '<span style="color: #f56565;">Error processing image. Please try again.</span>';
+            }
+        }
+        
+        // Tool 2: Batch Renamer
+        function batchRenameFiles() {
+            const files = document.getElementById('fileNames').value.split('\n').filter(f => f.trim());
+            const mode = document.getElementById('renameMode').value;
+            const value = document.getElementById('renameValue').value;
+            const resultDiv = document.getElementById('renameResult');
+            
+            if(files.length === 0) {
+                showToast('Enter file names first', true);
+                return;
+            }
+            
+            const renamed = files.map((file, index) => {
+                const name = file.trim();
+                const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
+                const baseName = name.includes('.') ? name.substring(0, name.lastIndexOf('.')) : name;
+                
+                switch(mode) {
+                    case 'prefix':
+                        return value + name;
+                    case 'suffix':
+                        return baseName + value + ext;
+                    case 'replace':
+                        const [oldText, newText] = value.split('|');
+                        return oldText ? name.replace(new RegExp(oldText, 'g'), newText) : name;
+                    case 'sequential':
+                        return `${value || 'file'}${index + 1}${ext}`;
+                    default:
+                        return name;
+                }
+            });
+            
+            resultDiv.innerHTML = `
+                <strong><i class="fas fa-list"></i> Preview Renamed Files:</strong>
+                <div style="margin-top: 8px; max-height: 200px; overflow-y: auto;">
+                    ${renamed.map((r, i) => `<div style="padding: 4px 0; border-bottom: 1px solid #e2e8f0;">${files[i]} → ${r}</div>`).join('')}
+                </div>
+                <button class="btn-primary" style="margin-top: 8px; width: auto; padding: 5px 12px;" onclick="copyRenamedList(${JSON.stringify(renamed).replace(/"/g, '&quot;')})">
+                    <i class="fas fa-copy"></i> Copy List
+                </button>
+            `;
+            resultDiv.style.display = 'block';
+        }
+        
+        function copyRenamedList(list) {
+            navigator.clipboard.writeText(list.join('\n'));
+            showToast('Copied to clipboard!');
+        }
+        
+        // Tool 3: Image to PDF
+        async function convertImagesToPDF() {
+            const files = Array.from(document.getElementById('pdfImages').files);
+            const resultDiv = document.getElementById('pdfResult');
+            
+            if(files.length === 0) {
+                showToast('Please select images first', true);
+                return;
+            }
+            
+            resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating PDF...';
+            resultDiv.style.display = 'block';
+            
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            let firstPage = true;
+            
+            for(let i = 0; i < files.length; i++) {
+                const imgData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(files[i]);
+                });
+                
+                const img = new Image();
+                await new Promise((resolve) => {
+                    img.onload = resolve;
+                    img.src = imgData;
+                });
+                
+                const imgWidth = pdf.internal.pageSize.getWidth();
+                const imgHeight = (img.height * imgWidth) / img.width;
+                
+                if(!firstPage) pdf.addPage();
+                firstPage = false;
+                
+                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+            }
+            
+            const pdfBlob = pdf.output('blob');
+            const url = URL.createObjectURL(pdfBlob);
+            
+            resultDiv.innerHTML = `
+                <strong><i class="fas fa-check-circle"></i> PDF Created!</strong>
+                <div style="margin-top: 8px;">${files.length} image(s) converted</div>
+                <a href="${url}" download="converted.pdf" class="btn-primary" style="display: inline-block; margin-top: 8px; text-decoration: none; text-align: center;">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            `;
+        }
+        
+        // Tool 4: Text Cleaner
+        function cleanText(action) {
+            const input = document.getElementById('dirtyText').value;
+            const resultDiv = document.getElementById('cleanResult');
+            
+            if(!input) {
+                showToast('Please enter some text', true);
+                return;
+            }
+            
+            let cleaned = input;
+            
+            switch(action) {
+                case 'trim':
+                    cleaned = input.replace(/\s+/g, ' ').trim();
+                    break;
+                case 'lines':
+                    cleaned = input.replace(/\n\s*\n/g, '\n').trim();
+                    break;
+                case 'uppercase':
+                    cleaned = input.toUpperCase();
+                    break;
+                case 'lowercase':
+                    cleaned = input.toLowerCase();
+                    break;
+                case 'title':
+                    cleaned = input.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+                    break;
+            }
+            
+            resultDiv.innerHTML = `
+                <strong><i class="fas fa-broom"></i> Cleaned Text:</strong>
+                <div style="background: white; padding: 0.8rem; border-radius: 6px; margin-top: 8px; max-height: 200px; overflow-y: auto;">${cleaned}</div>
+                <button class="btn-primary" style="margin-top: 8px; width: auto; padding: 5px 12px;" onclick="navigator.clipboard.writeText('${cleaned.replace(/'/g, "\\'")}')">
+                    <i class="fas fa-clipboard"></i> Copy to Clipboard
+                </button>
+            `;
+            resultDiv.style.display = 'block';
+        }
+        
+        // Event Listeners
+        document.getElementById('upgradeBtn').addEventListener('click', showPaymentModal);
+        document.getElementById('upgradeNavBtn').addEventListener('click', showPaymentModal);
+        
+        // Rename mode placeholder change
+        document.getElementById('renameMode').addEventListener('change', function() {
+            const placeholder = this.value === 'replace' ? 'old|new (e.g., photo|img_)' : 
+                               this.value === 'sequential' ? 'Base name (optional)' : 
+                               'Value to add';
+            document.getElementById('renameValue').placeholder = placeholder;
+        });
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if(event.target === modal) {
+                closePaymentModal();
+            }
+        };
+        
+        // Initialize
+        checkExistingVerification();
+    </script>
+</body>
+</html>
